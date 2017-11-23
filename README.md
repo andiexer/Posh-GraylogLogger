@@ -53,41 +53,40 @@ AdditionalProperties | true | object | - | additional properties which will be i
 
 ## Examples
 
-import the module
+**import the module**
 ```powershell
 Import-Module PSGrayLogLogger
 ```
 
-set connection to graylog server
+**set connection to graylog server**
 ```powershell
 New-GLServerConnection -Server <SERVERNAME or IP> -Port <GELF Port> -Endpoint <Endpointname (Default 'gelf')>
 ```
 
-add global log properties to context. these properties will be added to each log entry you will fire up
+**add global log properties to context. these properties will be added to each log entry you will fire up**
 ```powershell
 Add-GLGlobalLogProperty -PropertyName "ScriptName" -PropertyValue "TestScript.ps1"
 ```
 this will add a property called **ScriptName** with value **TestScript.ps1** to every log entry you will create
 
-
-create simple log entry
+**create simple log entry**
 ```powershell
 Write-GLLog -LogLevel Information -LogText "This is a simple logtext" 
 ```
 
-create a structured log entry
+**create a structured log entry**
 ```powershell
 Write-GLLog -LogLevel Information -LogText "Current status from api: {apiStatus}" -PropertyValues @('up')
 ```
 this produces a log with logtext: *"Current status from api: up"* and adds a property to graylog called **apiStatus** with value **up**
 
-create a structured log with simple logtext and additional properties
+**create a structured log with simple logtext and additional properties**
 ```powershell
 Write-GLLog -LogLevel Information -LogText "This is a simple logtext" -AdditionalProperties @{TimeElapsedSeconds = 12.5}
 ```
 this produces a log with logtext: *"This is a simple logtext"* and adds a property to graylog called **TimeElapsedSeconds** with value **12.5**
 
-create a structured log with  and additional properties
+**create a structured log with  and additional properties**
 ```powershell
 Write-GLLog -LogLevel Information "Current status from api: {apiStatus}" -PropertyValues @('up') -AdditionalProperties @{TimeElapsedSeconds = 12.5}
 ```
