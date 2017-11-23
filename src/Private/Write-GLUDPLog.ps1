@@ -1,0 +1,6 @@
+function Write-GLUDPLog {
+    param(
+
+    )   
+   
+}

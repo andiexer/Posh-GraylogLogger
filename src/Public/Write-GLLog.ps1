@@ -14,6 +14,7 @@ function Write-GLLog {
     $currentLogProperties = $global:GLLoggingProperties.Clone()
     $currentLogProperties['LogTemplate'] = $LogText
     $currentLogProperties['level'] = $LogLevel
+    $currentLogProperties['timestamp'] = [Math]::Floor( [decimal] (Get-Date ([dateTime]::Now.ToUniversalTime()) -UFormat '%s'));
     Write-Debug "found $($regexResult.Count) placeholders for structured logging"
     if($regexResult.Count -ne $PropertyValues.Count) {
         throw "unable create log entry. structured log placeholders amount does not match PropertyValues amount"
@@ -32,8 +33,8 @@ function Write-GLLog {
         }
     }
 
-    Write-Debug "sending log entry to graylog url: $($global:GLServer)"
-    Invoke-RestMethod -Method POST -Uri $global:GLServer -Body (ConvertTo-Json $currentLogProperties) -ContentType 'application/json'
+    Write-Debug "sending log entry to graylog url: $($global:GLHttpEndpoint)"
+    Invoke-RestMethod -Method POST -Uri $global:GLHttpEndpoint -Body (ConvertTo-Json $currentLogProperties) -ContentType 'application/json'
 }
 
 

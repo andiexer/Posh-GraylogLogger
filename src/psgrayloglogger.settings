@@ -1,0 +1,6 @@
+{
+    "Server" : "192.168.112.100",
+    "Port" : 12201,
+    "Endpoint": "gelf",
+    "TransportMode" : "Https"
+}

@@ -17,8 +17,13 @@ Foreach($import in @($Public + $Private))
 
 #initialize global Parameters
 $global:GLLoggingProperties = @{}
+$global:GLModuleBasePath = $PSScriptRoot
+$global:GLDefaultConfigFileName = "psgrayloglogger.settings"
 $global:GLLoggingProperties.Add("Hostname", $env:COMPUTERNAME)
 $global:GLServer = $null
+$global:GLPort = $null
+$global:GLHttpEndpoint = $null
+$global:GLTransportMode = $null
 
 #initialize enum values
 Add-Type -TypeDefinition @"
@@ -32,6 +37,16 @@ public enum GLLogLevel
    Notice,
    Informational,
    Debug
+}
+"@
+
+Add-Type -TypeDefinition @"
+public enum GLTransportMode
+{
+    Http,
+    Https,
+    Tcp,
+    Udp
 }
 "@
 
