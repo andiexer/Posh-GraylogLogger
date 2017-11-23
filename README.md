@@ -9,7 +9,7 @@ this repository contains a powershell module for writting log entries into grayl
 ## TODO's
 
 - [x] global logging properties
-- [ ] glogal logging properties as hashtable
+- [x] glogal logging properties as hashtable
 - [x] http gelf support
 - [x] basic logging and structured logging
 - [x] additional log properties per request
@@ -37,6 +37,12 @@ Parameter | Mandatory | Type | DefaultValue | Description
 PropertyName | true | string | - | name of the property 
 PropertyValue | true | object | - | value of the property (will be converted to string value)
 
+### Add-GLGlobalLogProperties
+Adding multiple global logging properties which will be appended on each log entry
+
+Parameter | Mandatory | Type | DefaultValue | Description
+--------- | --------- | ---- | ------------ | -----------
+Properties | true | hashtable | - | hashtable with properties
 
 ### Write-GLLog
 Creates a log entry and writes it into graylog
@@ -69,6 +75,12 @@ Add-GLGlobalLogProperty -PropertyName "ScriptName" -PropertyValue "TestScript.ps
 ```
 this will add a property called **ScriptName** with value **TestScript.ps1** to every log entry you will create
 
+**add multiple global log properties to context. these properties will be added to each log entry you will fire up**
+```powershell
+Add-GLGlobalLogProperties -Properties @{PropertyOne = "Hello"; PropertyTwo = "World"}
+```
+this will add a two properties called **PropertyOne/PropertyTwo** with values **Hello/World** to every log entry you will create
+
 **create simple log entry**
 ```powershell
 Write-GLLog -LogLevel Information -LogText "This is a simple logtext" 
@@ -90,7 +102,7 @@ Write-GLLog -LogLevel Information -LogText "This is a simple logtext" -Additiona
 ```
 this produces a log with logtext: *"This is a simple logtext"* and adds a property to graylog called **TimeElapsedSeconds** with value **12.5**
 ### Screenshot
-![simple log entry](docs/log_entry_simple_additional.PNGpng)
+![simple log entry](docs/log_entry_simple_additional.PNG)
 
 **create a structured log with  and additional properties**
 ```powershell

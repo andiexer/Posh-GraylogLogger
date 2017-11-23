@@ -14,7 +14,11 @@ function Write-GLLog {
     $currentLogProperties = $global:GLLoggingProperties.Clone()
     $currentLogProperties['LogTemplate'] = $LogText
     $currentLogProperties['level'] = $LogLevel
-    
+    Write-Debug "found $($regexResult.Count) placeholders for structured logging"
+    if($regexResult.Count -ne $PropertyValues.Count) {
+        throw "unable create log entry. structured log placeholders amount does not match PropertyValues amount"
+    }
+  
     for($i = 0; $i -lt $regexResult.Count; $i++) {
         $stringifiedValue = ConvertTo-GLString $PropertyValues[$i]
         $LogText = $LogText.Replace($regexResult[$i].Value, $stringifiedValue)
@@ -28,6 +32,7 @@ function Write-GLLog {
         }
     }
 
+    Write-Debug "sending log entry to graylog url: $($global:GLServer)"
     Invoke-RestMethod -Method POST -Uri $global:GLServer -Body (ConvertTo-Json $currentLogProperties) -ContentType 'application/json'
 }
 
