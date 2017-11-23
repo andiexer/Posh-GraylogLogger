@@ -73,24 +73,32 @@ this will add a property called **ScriptName** with value **TestScript.ps1** to 
 ```powershell
 Write-GLLog -LogLevel Information -LogText "This is a simple logtext" 
 ```
+### Screenshot
+![simple log entry](/docs/log_entry_simple.png)
 
 **create a structured log entry**
 ```powershell
 Write-GLLog -LogLevel Information -LogText "Current status from api: {apiStatus}" -PropertyValues @('up')
 ```
 this produces a log with logtext: *"Current status from api: up"* and adds a property to graylog called **apiStatus** with value **up**
+### Screenshot
+![simple log entry](/docs/log_entry_structured.png)
 
 **create a structured log with simple logtext and additional properties**
 ```powershell
 Write-GLLog -LogLevel Information -LogText "This is a simple logtext" -AdditionalProperties @{TimeElapsedSeconds = 12.5}
 ```
 this produces a log with logtext: *"This is a simple logtext"* and adds a property to graylog called **TimeElapsedSeconds** with value **12.5**
+### Screenshot
+![simple log entry](/docs/log_entry_simple_additional.png)
 
 **create a structured log with  and additional properties**
 ```powershell
 Write-GLLog -LogLevel Information "Current status from api: {apiStatus}" -PropertyValues @('up') -AdditionalProperties @{TimeElapsedSeconds = 12.5}
 ```
 this produces a log with logtext: *"Current status from api: up"* and adds a two properties to graylog called **apiStatus** with value **up** and **TimeElapsedSeconds** with value **12.5**
+### Screenshot
+![simple log entry](/docs/log_entry_structured_additional.png)
 
 
 
