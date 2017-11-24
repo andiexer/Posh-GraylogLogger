@@ -22,11 +22,26 @@ more to come...
 ### New-GLServerConnection
 Creates connection to graylog server
 
-Parameter | Mandatory | Type | DefaultValue | Description
---------- | --------- | ---- | ------------ | -----------
-Server | true | string | - | servername or ip
-Port | true | int | - | port of your gelf http endpoint
-Endpiont | false | string | gelf | your endpoint name (text behind :Port/...)
+Parameter | ParameterSet | Mandatory | Type | DefaultValue | Description
+--------- | ------------ | --------- | ---- | ------------ | -----------
+Server | Server | true | string | - | servername or ip
+Port | Server | true | int | - | port of your gelf http endpoint
+TransportMode | Server | true | GLTransportMode | Http | transport mode for logging (https/http/tcp/udp)
+Endpoint | Server | false | string | gelf | your endpoint name (text behind :Port/...)
+ConfigFile | ConfigFile | false | switch | false | use this switch if you wanna use a config file for parmeters  
+ConfigFilePath | ConfigFile | false | string | - | if you wanna provide a custom settings file (full path)
+
+#### Configfile
+the default config file is called **psgrayloglogger.settings** which is basically a json file and looks like this
+```json
+{
+    "Server" : "yourserver",
+    "Port" : 12201,
+    "Endpoint" : "gelf",
+    "TransportMode" : "Http"
+}
+```
+default path is the powershell module directory.
 
 
 ### Add-GLGlobalLogProperty
@@ -64,9 +79,16 @@ AdditionalProperties | true | object | - | additional properties which will be i
 Import-Module PSGrayLogLogger
 ```
 
-**set connection to graylog server**
+**set connection to graylog server with 'server' parameterset**
 ```powershell
-New-GLServerConnection -Server <SERVERNAME or IP> -Port <GELF Port> -Endpoint <Endpointname (Default 'gelf')>
+New-GLServerConnection -Server <SERVERNAME or IP> -Port <GELF Port> -Endpoint <Endpointname (Default 'gelf')> -TransportMode Http
+New-GLServerConnection -Server <SERVERNAME or IP> -Port <GELF Port> -TransportMode Udp
+```
+
+**set connection to graylog server with 'configfile' parameterset**
+```powershell
+New-GLServerConnection -ConfigFile #using default filename 'psgrayloglogger.settings' and default path
+New-GLServerConnection -ConfigFile -ConfigFilePath "C:\dev\myconfig.json" #using custom config file
 ```
 
 **add global log properties to context. these properties will be added to each log entry you will fire up**
