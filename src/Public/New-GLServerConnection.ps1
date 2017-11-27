@@ -34,6 +34,7 @@ function New-GLServerConnection {
         $TransportMode = [GLTransportMode]$configData.TransportMode
     }
 
+    $global:GLTransportMode = $TransportMode
     if($TransportMode -eq [GLTransportMode]::Http -or $TransportMode -eq [GLTransportMode]::Https) {
         Write-Debug "using http/https endpoint"
         $global:GLHttpEndpoint = "{0}://{1}:{2}/{3}" -f $TransportMode, $Server, $Port, $Endpoint
@@ -41,7 +42,6 @@ function New-GLServerConnection {
         Write-Debug "using tcp/udp endpoint"
         $global:GLServer = $Server
         $global:GLPort = $Port
-        $global:GLTransportMode = $TransportMode
         $global:GLHttpEndpoint = $null
     }
 }

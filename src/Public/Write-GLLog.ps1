@@ -33,8 +33,23 @@ function Write-GLLog {
         }
     }
 
-    Write-Debug "sending log entry to graylog url: $($global:GLHttpEndpoint)"
-    Invoke-RestMethod -Method POST -Uri $global:GLHttpEndpoint -Body (ConvertTo-Json $currentLogProperties) -ContentType 'application/json'
+    #TODO: switch between methods
+    switch -wildcard ($global:GLTransportMode) {
+        "Http*" {
+            Write-Debug "using tcp transport mode: $($global:GLHttpEndpoint)"
+            Invoke-RestMethod -Method POST -Uri $global:GLHttpEndpoint -Body (ConvertTo-Json $currentLogProperties) -ContentType 'application/json'
+        }
+        "Udp" {
+            Write-Debug "using udp transport mode"
+            Write-GLUDPLog -LogProperties $currentLogProperties
+        }
+        "Tcp" {
+
+        }
+
+    }
+    
+    
 }
 
 
