@@ -33,7 +33,6 @@ function Write-GLLog {
         }
     }
 
-    #TODO: switch between methods
     switch -wildcard ($global:GLTransportMode) {
         "Http*" {
             Write-Debug "using tcp transport mode: $($global:GLHttpEndpoint)"
@@ -41,15 +40,13 @@ function Write-GLLog {
         }
         "Udp" {
             Write-Debug "using udp transport mode"
-            Write-GLUDPLog -LogProperties $currentLogProperties
+            Write-GLUDPLog -LogProperties (Rename-GLProperties -LogProperties $currentLogProperties)
         }
         "Tcp" {
-
+            Write-Debug "using tcp transport mode"
+            Write-GLTCPLog -LogProperties (Rename-GLProperties -LogProperties $currentLogProperties)
         }
-
     }
-    
-    
 }
 
 

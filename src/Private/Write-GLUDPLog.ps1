@@ -24,12 +24,12 @@ function Write-GLUDPLog {
                 $sequenceNumber = [byte]$i
                 $startIndex = $i * $chunkSize
                 $endIndex = $startIndex + $chunkSize -1
+                if($endIndex -gt $byteArrayJsonContent.Length) { $endIndex = $byteArrayJsonContent.Length -1}
                 Write-Debug "startindex: $startIndex endIndex: $endIndex"
                 $chunkData = $byteArrayJsonContent[$startIndex .. $endIndex]
                 $chunkPacket = $magicBytes + $messageId + $sequenceNumber + $numberOfChunks + $chunkData
                 Write-Debug "sending chunk $($i + 1) from $($numberOfChunks)"
                 $udpClient.Send($chunkPacket, $chunkPacket.Length) | out-null
-                //FIXME: not working right now. messages are sent to endpoint but not processed correctly
             }
         }
         else 

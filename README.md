@@ -1,5 +1,8 @@
 # Posh-GraylogLogger
-Powershell Modul for logging your script logs into GrayLog via GELF. (HTTP only at this point)
+Powershell Modul for logging your script logs into GrayLog via GELF. 
+
+> ATTENTION! This module is experimental only at the moment. i'll try to get it stable as soon as possible!
+> therefore if you enable $DebugPreference = 'Continue' you will see a lot of messages for debugging purposes
 
 ## Description
 this repository contains a powershell module for writting log entries into graylog via gelf http (tcp/udp work in progress). following features are implemented:
@@ -13,7 +16,8 @@ this repository contains a powershell module for writting log entries into grayl
 - [x] http gelf support
 - [x] basic logging and structured logging
 - [x] additional log properties per request
-- [ ] add tcp and udp support
+- [x] add tcp and udp support
+- [ ] tcp tls support?
 
 more to come...
  
