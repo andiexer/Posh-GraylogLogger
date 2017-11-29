@@ -12,7 +12,7 @@
 RootModule = '.\PSGraylogLogger.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.0'
+ModuleVersion = '0.1'
 
 # ID used to uniquely identify this module
 GUID = 'ca456fe0-9192-447d-9aa8-c9156154401a'
