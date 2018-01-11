@@ -1,4 +1,4 @@
-function Write-Error {
+function Global:Write-Error {
     [CmdletBinding(DefaultParameterSetName='NoException', HelpUri='https://go.microsoft.com/fwlink/?LinkID=113425', RemotingCapability='None')]
     param(
         [Parameter(ParameterSetName='WithException', Mandatory=$true)]

@@ -47,7 +47,7 @@ Foreach($import in @($Public + $Private))
     }
     Catch
     {
-        Write-Error -Message "Failed to import function $($import.fullname): $_"
+        Microsoft.PowerShell.Utility\Write-Error -Message "Failed to import function $($import.fullname): $_"
     }
 }
 

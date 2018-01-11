@@ -15,7 +15,7 @@ function Write-GLLog {
     $currentLogProperties['LogTemplate'] = $LogText
     $currentLogProperties['level'] = $LogLevel
     $currentLogProperties['timestamp'] = [Math]::Floor( [decimal] (Get-Date ([dateTime]::Now.ToUniversalTime()) -UFormat '%s'));
-    Write-Debug "found $($regexResult.Count) placeholders for structured logging"
+    Microsoft.PowerShell.Utility\Write-Debug "found $($regexResult.Count) placeholders for structured logging"
     if($regexResult.Count -ne $PropertyValues.Count) {
         throw "unable create log entry. structured log placeholders amount does not match PropertyValues amount"
     }
@@ -35,15 +35,15 @@ function Write-GLLog {
 
     switch -wildcard ($global:GLTransportMode) {
         "Http*" {
-            Write-Debug "using tcp transport mode: $($global:GLHttpEndpoint)"
+            Microsoft.PowerShell.Utility\Write-Debug "using tcp transport mode: $($global:GLHttpEndpoint)"
             Invoke-RestMethod -Method POST -Uri $global:GLHttpEndpoint -Body (ConvertTo-Json $currentLogProperties) -ContentType 'application/json'
         }
         "Udp" {
-            Write-Debug "using udp transport mode"
+            Microsoft.PowerShell.Utility\Write-Debug "using udp transport mode"
             Write-GLUDPLog -LogProperties (Rename-GLProperties -LogProperties $currentLogProperties)
         }
         "Tcp" {
-            Write-Debug "using tcp transport mode"
+            Microsoft.PowerShell.Utility\Write-Debug "using tcp transport mode"
             Write-GLTCPLog -LogProperties (Rename-GLProperties -LogProperties $currentLogProperties)
         }
     }
