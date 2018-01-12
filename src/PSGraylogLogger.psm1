@@ -6,7 +6,7 @@
 $global:GLLoggingProperties = @{}
 $global:GLModuleBasePath = $PSScriptRoot
 $global:GLDefaultConfigFileName = "psgrayloglogger.settings"
-$global:GLLoggingProperties.Add("Hostname", $env:COMPUTERNAME)
+$global:GLLoggingProperties.Add("host", $env:COMPUTERNAME)
 $global:GLServer = $null
 $global:GLPort = $null
 $global:GLHttpEndpoint = $null
