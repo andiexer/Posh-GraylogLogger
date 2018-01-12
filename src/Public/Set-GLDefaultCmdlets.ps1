@@ -1,8 +1,8 @@
 
 function Set-GLDefaultCmdlets {
     param(
-        [switch]$Enabled,
-        [switch]$Disabled
+        [switch]$Enable,
+        [switch]$Disable
     )
 
     if ($Enabled) {
