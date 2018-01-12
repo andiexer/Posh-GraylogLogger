@@ -75,6 +75,13 @@ AdditionalProperties | true | object | - | additional properties which will be i
 
 > you can also add custom objects to the PropertyValues and AdditionalProperties. PSGraylogLogger will try to convert these to json and adds these values to the logtext or as additional property
 
+### Set-GLDefaultCmdlets
+Overwrites the basic cmdlets Write-Debug, Write-Verbose, Write-Output, Write-Warning and Write-Error. As a result you are able to send every message written by these cmdlets additional to the graylog server.
+
+Parameter | Mandatory | Type | DefaultValue | Description
+--------- | --------- | ---- | ------------ | -----------
+Enable | false | switch | - | imports the overwrite functions
+Disable | false | switch | - | removes the overwrite functions
 
 ## Examples
 
