@@ -16,7 +16,16 @@ function New-GLServerConnection {
         [string]$ConfigFilePath,
         [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
         [Parameter(ParameterSetName='Server')]
-        [switch]$EnableDefaultCmdlets
+        [switch]$EnableDefaultCmdlets,
+        [Parameter(Mandatory=$false, ParameterSetName='Server')]
+        [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
+        [string]$SourceType = "Powershell",
+        [Parameter(Mandatory=$false, ParameterSetName='Server')]
+        [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
+        [string]$TransactionId,
+        [Parameter(Mandatory=$false, ParameterSetName='Server')]
+        [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
+        [string]$ScriptName
     )
 
    ($ConfigFilePath -eq "")
@@ -37,7 +46,17 @@ function New-GLServerConnection {
         $TransportMode = [GLTransportMode]$configData.TransportMode
     }
 
+    if([string]::IsNullOrEmpty($ScriptName)) {
+        if([string]::IsNullOrEmpty($MyInvocation.MyCommand.Name)) {
+            $global:GLLoggingProperties["ScriptName"] = "-no-script-"
+        } else {
+            $global:GLLoggingProperties["ScriptName"] = $MyInvocation.MyCommand.Name
+        }
+    }
+
+    $global:GLLoggingProperties["SourceType"] = $SourceType
     $global:GLTransportMode = $TransportMode
+
     if($TransportMode -eq [GLTransportMode]::Http -or $TransportMode -eq [GLTransportMode]::Https) {
         Microsoft.PowerShell.Utility\Write-Debug "using http/https endpoint"
         $global:GLHttpEndpoint = "{0}://{1}:{2}/{3}" -f $TransportMode, $Server, $Port, $Endpoint
