@@ -54,6 +54,14 @@ function New-GLServerConnection {
         }
     }
 
+    if([string]::IsNullOrEmpty($TransactionId)) {
+        $global:GLLoggingProperties["TransactionId"] = (New-Guid).Guid
+    } else {
+        $global:GLLoggingProperties["TransactionId"] = $TransactionId
+    }
+
+
+
     $global:GLLoggingProperties["SourceType"] = $SourceType
     $global:GLTransportMode = $TransportMode
 
