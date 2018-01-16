@@ -2,7 +2,7 @@
 $DebugPreference = 'Continue'
 
 # Set Graylog Connection
-New-GLServerConnection -Server 192.168.209.128 -Port 5555 -TransportMode udp
+New-GLServerConnection -Server 192.168.209.128 -Port 5555 -TransportMode udp -EnableDefaultCmdlets
 
 # Add Additional Global Log Properties for Script
 Add-GLGlobalLogProperty -PropertyName "ScriptName" -PropertyValue "ApiMonitoringScript.ps1"
@@ -26,7 +26,6 @@ Write-GLLog -LogLevel Debug -LogText "This is a test with additional log propert
 Write-GLLog -LogLevel Debug -LogText "This is a test with additional log properties" -AdditionalProperties @{AdditionalTestProperty = "Hallo Welt 13371"}
 
 # Test overwrite of basic powershell cmdlets
-Set-GLDefaultCmdlets -Enable
 
 Write-Output "This is a test with the base cmdlet Write-Output"
 Write-Warning "This is a test with the base cmdlet Write-Warning"

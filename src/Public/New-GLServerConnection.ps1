@@ -13,7 +13,10 @@ function New-GLServerConnection {
         [Parameter(Mandatory=$true, ParameterSetName='ConfigFile')]
         [switch]$ConfigFile,
         [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
-        [string]$ConfigFilePath
+        [string]$ConfigFilePath,
+        [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
+        [Parameter(ParameterSetName='Server')]
+        [switch]$EnableDefaultCmdlets
     )
 
    ($ConfigFilePath -eq "")
@@ -44,4 +47,9 @@ function New-GLServerConnection {
         $global:GLPort = $Port
         $global:GLHttpEndpoint = $null
     }
+
+    if ($EnableDefaultCmdlets) {
+        Set-GLDefaultCmdlets -Enable
+    }
+
 }
