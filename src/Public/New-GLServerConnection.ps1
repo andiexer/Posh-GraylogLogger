@@ -47,7 +47,7 @@ function New-GLServerConnection {
     }
 
     if([string]::IsNullOrEmpty($ScriptName)) {
-        if([string]::IsNullOrEmpty($MyInvocation.MyCommand.Name)) {
+        if([string]::IsNullOrEmpty($MyInvocation.ScriptName)) {
             $global:GLLoggingProperties["ScriptName"] = "RUNSPACE"
         } else {
             $global:GLLoggingProperties["ScriptName"] = $MyInvocation.ScriptName.Split("\")[-1]
