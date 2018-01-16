@@ -2,7 +2,7 @@
 $DebugPreference = 'Continue'
 
 # Set Graylog Connection
-New-GLServerConnection -Server 192.168.209.128 -Port 5556 -TransportMode udp
+New-GLServerConnection -Server 192.168.209.128 -Port 5555 -TransportMode udp
 
 # Add Additional Global Log Properties for Script
 Add-GLGlobalLogProperty -PropertyName "ScriptName" -PropertyValue "ApiMonitoringScript.ps1"
@@ -33,3 +33,5 @@ Write-Warning "This is a test with the base cmdlet Write-Warning"
 Write-Debug "This is a test with the base cmdlet Write-Debug"
 Write-Verbose "This is a test with the base cmdlet Write-Verbose"
 Write-Error "This is a test with the base cmdlet Write-Error"
+
+Remove-Module PSGraylogLogger

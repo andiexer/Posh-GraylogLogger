@@ -5,15 +5,15 @@ function Set-GLDefaultCmdlets {
         [switch]$Disable
     )
 
-    if ($Enabled) {
+    if ($Enable) {
         Microsoft.PowerShell.Utility\Write-Debug "Overwrite basic write PowerShell cmdlets"
-        . .\Private\BaseFunctions\Write-Debug.ps1
-        . .\Private\BaseFunctions\Write-Error.ps1
-        . .\Private\BaseFunctions\Write-Output.ps1
-        . .\Private\BaseFunctions\Write-Verbose.ps1
-        . .\Private\BaseFunctions\Write-Warning.ps1
+        . "$($global:GLModuleBasePath)\Private\BaseFunctions\Write-Debug.ps1"
+        . "$($global:GLModuleBasePath)\Private\BaseFunctions\Write-Error.ps1"
+        . "$($global:GLModuleBasePath)\Private\BaseFunctions\Write-Output.ps1"
+        . "$($global:GLModuleBasePath)\Private\BaseFunctions\Write-Verbose.ps1"
+        . "$($global:GLModuleBasePath)\Private\BaseFunctions\Write-Warning.ps1"
     }
-    elseif ($Disabled) {
+    elseif ($Disable) {
         Microsoft.PowerShell.Utility\Write-Debug "Remove basic write PowerShell cmdlets"
         Remove-Item Function:\Write-Debug
         Remove-Item Function:\Write-Error
