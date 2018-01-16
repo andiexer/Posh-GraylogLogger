@@ -9,7 +9,7 @@ $global:GLDefaultConfigFileName = "psgrayloglogger.settings"
 $global:GLLoggingProperties.Add("host", $env:COMPUTERNAME)
 $global:GLServer = $null
 $global:GLPort = $null
-$global:GLHttpEndpoint = $null
+$global:GLHttpEndpoint = $null 
 $global:GLTransportMode = $null
 
 #initialize enum values
