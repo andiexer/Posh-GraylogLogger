@@ -40,6 +40,7 @@ function New-GLServerConnection {
         $global:GLHttpEndpoint = "{0}://{1}:{2}/{3}" -f $TransportMode, $Server, $Port, $Endpoint
     } else {
         Write-Debug "using tcp/udp endpoint"
+        $global:GLLoggingProperties.Add("version","1.1")
         $global:GLServer = $Server
         $global:GLPort = $Port
         $global:GLHttpEndpoint = $null

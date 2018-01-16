@@ -12,7 +12,6 @@ function Write-GLLog {
 
     $regexResult = [regex]::Matches($logText,"(?<start>\{)+(?<property>[\w\.\[\]]+)(?<format>:[^}]+)?(?<end>\})+")
     $currentLogProperties = $global:GLLoggingProperties.Clone()
-    $currentLogProperties['LogTemplate'] = $LogText
     $currentLogProperties['level'] = $LogLevel
     $currentLogProperties['timestamp'] = [Math]::Floor( [decimal] (Get-Date ([dateTime]::Now.ToUniversalTime()) -UFormat '%s'));
     Write-Debug "found $($regexResult.Count) placeholders for structured logging"
@@ -35,7 +34,7 @@ function Write-GLLog {
 
     switch -wildcard ($global:GLTransportMode) {
         "Http*" {
-            Write-Debug "using tcp transport mode: $($global:GLHttpEndpoint)"
+            Write-Debug "using http transport mode: $($global:GLHttpEndpoint)"
             Invoke-RestMethod -Method POST -Uri $global:GLHttpEndpoint -Body (ConvertTo-Json $currentLogProperties) -ContentType 'application/json'
         }
         "Udp" {
