@@ -13,16 +13,19 @@ function New-GLServerConnection {
         [Parameter(Mandatory=$true, ParameterSetName='ConfigFile')]
         [switch]$ConfigFile,
         [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
-        [string]$ConfigFilePath
+        [string]$ConfigFilePath,
+        [Parameter(Mandatory=$false, ParameterSetName='ConfigFile')]
+        [Parameter(ParameterSetName='Server')]
+        [switch]$EnableDefaultCmdlets
     )
 
    ($ConfigFilePath -eq "")
     if($ConfigFile) {
         if([string]::IsNullOrEmpty($ConfigFilePath)) {
-            Write-Debug "using default path and filename"
+            Microsoft.PowerShell.Utility\Write-Debug "using default path and filename"
             $ConfigFilePath = "$($global:GLModuleBasePath)\$($global:GLDefaultConfigFileName)"
         } else {
-            Write-Debug "using custom configfilepath: $ConfigFilePath"
+            Microsoft.PowerShell.Utility\Write-Debug "using custom configfilepath: $ConfigFilePath"
         }
         if(![System.IO.File]::Exists($ConfigFilePath)){
             throw "unable to get configfile"
@@ -36,13 +39,18 @@ function New-GLServerConnection {
 
     $global:GLTransportMode = $TransportMode
     if($TransportMode -eq [GLTransportMode]::Http -or $TransportMode -eq [GLTransportMode]::Https) {
-        Write-Debug "using http/https endpoint"
+        Microsoft.PowerShell.Utility\Write-Debug "using http/https endpoint"
         $global:GLHttpEndpoint = "{0}://{1}:{2}/{3}" -f $TransportMode, $Server, $Port, $Endpoint
     } else {
-        Write-Debug "using tcp/udp endpoint"
+        Microsoft.PowerShell.Utility\Write-Debug "using tcp/udp endpoint"
         $global:GLLoggingProperties.Add("version","1.1")
         $global:GLServer = $Server
         $global:GLPort = $Port
         $global:GLHttpEndpoint = $null
     }
+
+    if ($EnableDefaultCmdlets) {
+        Set-GLDefaultCmdlets -Enable
+    }
+
 }

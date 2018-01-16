@@ -1,8 +1,8 @@
-﻿ipmo C:\dev\ps\Posh-GraylogLogger\src\PSGraylogLogger.psm1
+﻿ipmo ..\src\PSGraylogLogger.psm1
 $DebugPreference = 'Continue'
 
 # Set Graylog Connection
-New-GLServerConnection -Server 192.168.112.100 -Port 5556 -TransportMode udp
+New-GLServerConnection -Server 192.168.209.128 -Port 5555 -TransportMode udp -EnableDefaultCmdlets
 
 # Add Additional Global Log Properties for Script
 Add-GLGlobalLogProperty -PropertyName "ScriptName" -PropertyValue "ApiMonitoringScript.ps1"
@@ -25,7 +25,12 @@ Write-GLLog -LogLevel Debug -LogText "This is a test with additional log propert
 # Write a fancy log message without named properties but with additional properties
 Write-GLLog -LogLevel Debug -LogText "This is a test with additional log properties" -AdditionalProperties @{AdditionalTestProperty = "Hallo Welt 13371"}
 
+# Test overwrite of basic powershell cmdlets
 
+Write-Output "This is a test with the base cmdlet Write-Output"
+Write-Warning "This is a test with the base cmdlet Write-Warning"
+Write-Debug "This is a test with the base cmdlet Write-Debug"
+Write-Verbose "This is a test with the base cmdlet Write-Verbose"
+Write-Error "This is a test with the base cmdlet Write-Error"
 
-
-
+Remove-Module PSGraylogLogger

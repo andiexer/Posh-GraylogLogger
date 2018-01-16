@@ -17,7 +17,7 @@ function Write-GLTCPLog {
         $stream.Write($byteArrayJsonContent, 0,$byteArrayJsonContent.Length)
     }
     catch {
-        Write-Error $_
+        Microsoft.PowerShell.Utility\Write-Error $_
     }
     finally {
         if($tcpClient.Connected) {
