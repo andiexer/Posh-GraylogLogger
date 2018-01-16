@@ -60,8 +60,6 @@ function New-GLServerConnection {
         $global:GLLoggingProperties["TransactionId"] = $TransactionId
     }
 
-
-
     $global:GLLoggingProperties["SourceType"] = $SourceType
     $global:GLTransportMode = $TransportMode
 
