@@ -48,7 +48,7 @@ function New-GLServerConnection {
 
     if([string]::IsNullOrEmpty($ScriptName)) {
         if([string]::IsNullOrEmpty($MyInvocation.MyCommand.Name)) {
-            $global:GLLoggingProperties["ScriptName"] = "-no-script-"
+            $global:GLLoggingProperties["ScriptName"] = "RUNSPACE"
         } else {
             $global:GLLoggingProperties["ScriptName"] = $MyInvocation.MyCommand.Name
         }
